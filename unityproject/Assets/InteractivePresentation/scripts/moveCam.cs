@@ -1,18 +1,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+using UniRx;
+using UniRx.Triggers;
 
 public class moveCam : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    private Transform camRoot;
+    private void Start()
     {
+        this.UpdateAsObservable()
+            .Where(_ => Input.GetKeyDown(KeyCode.A))
+            .Subscribe(_ =>nextSlide());
         
+        this.UpdateAsObservable()
+            .Where(_ => Input.GetKeyDown(KeyCode.D))
+            .Subscribe(_ =>backSlide());
     }
 
-    // Update is called once per frame
-    void Update()
+    private void nextSlide()
     {
-        
+        Debug.Log("next");
+    }
+
+    private void backSlide()
+    {
+        Debug.Log("back");
     }
 }
