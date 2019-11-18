@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
@@ -9,6 +8,9 @@ public class moveCam : MonoBehaviour
 {
     [SerializeField]
     private Transform camRoot;
+
+    [SerializeField, Range(0, 100)] 
+    private float _moveRange = 25;
     
     private OscServer _server;
     private Vector2 _touch;
@@ -20,20 +22,30 @@ public class moveCam : MonoBehaviour
         
         this.UpdateAsObservable()
             .Where(_ => _touch.y > 0 && _touchCount == 1)
-            .Subscribe(_ =>nextSlide());
+            .ThrottleFirst(TimeSpan.FromSeconds(0.2))
+            .Subscribe(_ =>nextSlide(camRoot, _moveRange));
         
         this.UpdateAsObservable()
             .Where(_ => _touch.y < 0 && _touchCount == 1)
-            .Subscribe(_ =>backSlide());
+            .ThrottleFirst(TimeSpan.FromSeconds(0.2))
+            .Subscribe(_ =>backSlide(camRoot, _moveRange));
     }
 
-    private void nextSlide()
+    private void nextSlide(Transform root, float range)
     {
+        Vector3 currentPos = root.position;
+        Vector3 nextPos = new Vector3(currentPos.x, currentPos.y, currentPos.z + range);
+        root.position = Vector3.Lerp(currentPos, nextPos, Time.deltaTime);
+  
         Debug.Log("next");
     }
 
-    private void backSlide()
+    private void backSlide(Transform root, float range)
     {
+        Vector3 currentPos = root.position;
+        Vector3 backPos = new Vector3(currentPos.x, currentPos.y, currentPos.z - range);
+        root.position = Vector3.Lerp(currentPos, backPos, Time.deltaTime);
+        
         Debug.Log("back");
     }
 

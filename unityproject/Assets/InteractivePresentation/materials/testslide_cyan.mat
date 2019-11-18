@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: testslide
+  m_Name: testslide_cyan
   m_Shader: {fileID: 4800000, guid: 69d7b4a37131216499008a7d25328970, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
