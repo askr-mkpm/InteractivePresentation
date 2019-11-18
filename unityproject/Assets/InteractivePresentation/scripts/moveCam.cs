@@ -14,6 +14,9 @@ public class moveCam : MonoBehaviour
     [SerializeField, Range(0, 100)] 
     private float moveRange = 25;
     
+    [SerializeField, Range(1, 10)] 
+    private float moveSpeed =1;
+    
     private OscServer _server;
     private Vector2 _touch;
     private int _touchCount;
@@ -62,7 +65,7 @@ public class moveCam : MonoBehaviour
 
     private void moveCamRoot(Transform root, Transform target)
     {
-        root.position = Vector3.Lerp(root.position, target.position, Time.deltaTime);
+        root.position = Vector3.Lerp(root.position, target.position, Time.deltaTime * moveSpeed);
     }
 
     private void linkOsc()

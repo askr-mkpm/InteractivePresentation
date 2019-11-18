@@ -150,7 +150,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camRoot: {fileID: 1068890229}
-  _moveRange: 25
+  moveRange: 25
+  moveSpeed: 2
 --- !u!4 &27827639
 Transform:
   m_ObjectHideFlags: 0
