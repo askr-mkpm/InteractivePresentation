@@ -8,14 +8,22 @@ public class moveCam : MonoBehaviour
 {
     [SerializeField]
     private Transform camRoot;
+    
+    private GameObject _targetPos;
 
     [SerializeField, Range(0, 100)] 
-    private float _moveRange = 25;
+    private float moveRange = 25;
     
     private OscServer _server;
     private Vector2 _touch;
-    private float _touchCount;
-    
+    private int _touchCount;
+
+    private void Awake()
+    {
+        _targetPos = new GameObject("targetPos");
+        _targetPos.transform.position = Vector3.zero;
+    }
+
     private void Start()
     {
         linkOsc();
@@ -23,30 +31,38 @@ public class moveCam : MonoBehaviour
         this.UpdateAsObservable()
             .Where(_ => _touch.y > 0 && _touchCount == 1)
             .ThrottleFirst(TimeSpan.FromSeconds(0.2))
-            .Subscribe(_ =>nextSlide(camRoot, _moveRange));
+            .Subscribe(_ =>nextSlide(_targetPos.transform, moveRange));
         
         this.UpdateAsObservable()
             .Where(_ => _touch.y < 0 && _touchCount == 1)
             .ThrottleFirst(TimeSpan.FromSeconds(0.2))
-            .Subscribe(_ =>backSlide(camRoot, _moveRange));
+            .Subscribe(_ =>backSlide(_targetPos.transform, moveRange));
+
+        this.UpdateAsObservable()
+            .Subscribe(_ => moveCamRoot(camRoot, _targetPos.transform));
     }
 
-    private void nextSlide(Transform root, float range)
+    private void nextSlide(Transform target, float range)
     {
-        Vector3 currentPos = root.position;
+        Vector3 currentPos = target.position;
         Vector3 nextPos = new Vector3(currentPos.x, currentPos.y, currentPos.z + range);
-        root.position = Vector3.Lerp(currentPos, nextPos, Time.deltaTime);
+        target.position = nextPos;
   
         Debug.Log("next");
     }
 
-    private void backSlide(Transform root, float range)
+    private void backSlide(Transform target, float range)
     {
-        Vector3 currentPos = root.position;
+        Vector3 currentPos = target.position;
         Vector3 backPos = new Vector3(currentPos.x, currentPos.y, currentPos.z - range);
-        root.position = Vector3.Lerp(currentPos, backPos, Time.deltaTime);
+        target.position = backPos;
         
         Debug.Log("back");
+    }
+
+    private void moveCamRoot(Transform root, Transform target)
+    {
+        root.position = Vector3.Lerp(root.position, target.position, Time.deltaTime);
     }
 
     private void linkOsc()
@@ -66,7 +82,7 @@ public class moveCam : MonoBehaviour
             "/ZIGSIM/mikipomaid/touchcount",
             (string address, OscDataHandle data) =>
             {
-                _touchCount = data.GetElementAsFloat(0);
+                _touchCount = data.GetElementAsInt(0);
             }
         );
     }
