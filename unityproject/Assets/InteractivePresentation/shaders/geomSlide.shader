@@ -3,6 +3,7 @@
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+        _test("test", Range(0,1)) = 0
     }
     SubShader
     {
@@ -28,6 +29,7 @@
             
             sampler2D _MainTex;
             float4 _MainTex_ST;
+            float _test;
 
             struct appdata_t 
             {
@@ -41,6 +43,7 @@
                 float4 vertex : SV_POSITION;
                 fixed4 color : COLOR;
                 float2 texcoord : TEXCOORD0;
+                float alpha : TEXCOORD1;
             };
 
             appdata_t vert(appdata_t v)
@@ -59,6 +62,9 @@
            
                 float4 worldPos = mul(unity_ObjectToWorld, float4(center, 1.0));
                 float3 dist = length(_WorldSpaceCameraPos - worldPos);
+                
+                float r = 2 * (rand(center.xy) - 0.5);
+                float3 r3 = fixed3(r, r, r);
 
                 [unroll]
                 for (int i = 0; i < 3; ++i)
@@ -66,10 +72,12 @@
                     appdata_t v = input[i];
             
                     g2f o;
-            
-                    v.vertex.xyz += normal * 0.0001 * pow(dist, 2);
+                    
+                    v.vertex.xyz = rotate(v.vertex.xyz - center, r3 * pow(dist, 2) * 0.001) + center;
+                    v.vertex.xyz += normal * 0.0001 * pow(dist, 2) * r;
                     o.vertex = UnityObjectToClipPos(v.vertex);
                     o.color = v.color;
+                    o.alpha = 1 - clamp(pow(dist, 1.7) * 0.001, 0,1);
                     o.texcoord = TRANSFORM_TEX(v.texcoord, _MainTex);
             
                     stream.Append(o);
@@ -80,6 +88,7 @@
             fixed4 frag (g2f i) : SV_Target
             {
                 fixed4 col = tex2D(_MainTex, i.texcoord);
+                col.a *= i.alpha;
 
                 return col;
             }
