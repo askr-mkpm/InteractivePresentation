@@ -24,6 +24,7 @@
             #pragma geometry geom
 
             #include "UnityCG.cginc"
+            #include "commonFunc.cginc"
             
             sampler2D _MainTex;
             float4 _MainTex_ST;
