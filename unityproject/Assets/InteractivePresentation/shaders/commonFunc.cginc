@@ -21,3 +21,8 @@ float3 rotate(float3 p, float3 rotation)
     );
     return mul(m, p);
 }
+
+float rand(float2 seed)
+{
+    return frac(sin(dot(seed.xy, float2(12.9898, 78.233))) * 43758.5453);
+}
