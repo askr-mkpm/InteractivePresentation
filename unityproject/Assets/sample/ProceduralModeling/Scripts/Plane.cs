@@ -10,10 +10,12 @@ namespace ProceduralModeling {
 		[SerializeField, Range(2, 300)] protected int widthSegments = 8, heightSegments = 8;
 
 		// Planeの横幅と縦幅
-		[SerializeField, Range(0.1f, 10f)] protected float width = 1f, height = 1f;
+		[SerializeField, Range(0.1f, 10f)] protected float size = 1f;
 
 		protected override Mesh Build() {
 			var mesh = new Mesh();
+			float width = 16.0f * size;
+			float height = 9.0f * size;
 
 			var vertices = new List<Vector3>();
 			var uv = new List<Vector2>();

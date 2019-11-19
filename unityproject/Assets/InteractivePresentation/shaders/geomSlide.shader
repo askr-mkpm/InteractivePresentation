@@ -3,7 +3,9 @@
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
-        _test("test", Range(0,1)) = 0
+        _emission ("emission", Range(1,2)) = 1
+        _destRange ("destRange", Range(1,10)) = 1
+        _alphaRange ("alphaRange", Range(1,2)) = 1.7
     }
     SubShader
     {
@@ -29,7 +31,9 @@
             
             sampler2D _MainTex;
             float4 _MainTex_ST;
-            float _test;
+            float _emission;
+            float _destRange;
+            float _alphaRange;
 
             struct appdata_t 
             {
@@ -73,11 +77,11 @@
             
                     g2f o;
                     
-                    v.vertex.xyz = rotate(v.vertex.xyz - center, r3 * pow(dist, 2) * 0.001) + center;
-                    v.vertex.xyz += normal * 0.0001 * pow(dist, 2) * r;
+                    //v.vertex.xyz = rotate(v.vertex.xyz - center, r3 * pow(dist, 2) * 0.001) + center;
+                    v.vertex.xyz += normal * 0.001 * _destRange* pow(dist, 2) * r;
                     o.vertex = UnityObjectToClipPos(v.vertex);
                     o.color = v.color;
-                    o.alpha = 1 - clamp(pow(dist, 1.7) * 0.001, 0,1);
+                    o.alpha = 1 - clamp(pow(dist, _alphaRange) * 0.001, 0,1);
                     o.texcoord = TRANSFORM_TEX(v.texcoord, _MainTex);
             
                     stream.Append(o);
@@ -88,6 +92,7 @@
             fixed4 frag (g2f i) : SV_Target
             {
                 fixed4 col = tex2D(_MainTex, i.texcoord);
+                col *= _emission;
                 col.a *= i.alpha;
 
                 return col;
