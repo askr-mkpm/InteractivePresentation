@@ -6,6 +6,7 @@
         _emission ("emission", Range(1,2)) = 1
         _destRange ("destRange", Range(1,10)) = 1
         _alphaRange ("alphaRange", Range(1,2)) = 1.7
+        _fadePos ("fadePos", Range(0,100)) = 25
     }
     SubShader
     {
@@ -34,6 +35,7 @@
             float _emission;
             float _destRange;
             float _alphaRange;
+            float _fadePos;
 
             struct appdata_t 
             {
@@ -65,7 +67,7 @@
                 float3 normal = normalize(cross(vec1, vec2));
            
                 float4 worldPos = mul(unity_ObjectToWorld, float4(center, 1.0));
-                float3 dist = length(_WorldSpaceCameraPos - worldPos);
+                float3 dist = abs(length(_WorldSpaceCameraPos - worldPos) - _fadePos);
                 
                 float r = 2 * (rand(center.xy) - 0.5);
                 float3 r3 = fixed3(r, r, r);
@@ -77,11 +79,12 @@
             
                     g2f o;
                     
+
                     //v.vertex.xyz = rotate(v.vertex.xyz - center, r3 * pow(dist, 2) * 0.001) + center;
-                    v.vertex.xyz += normal * 0.001 * _destRange* pow(dist, 2) * r;
+                    v.vertex.xyz += normal * 0.001 * _destRange* pow(dist, 1.7) * r ;
                     o.vertex = UnityObjectToClipPos(v.vertex);
                     o.color = v.color;
-                    o.alpha = 1 - clamp(pow(dist, _alphaRange) * 0.001, 0,1);
+                    o.alpha = 1 - clamp(pow(dist * 0.07, _alphaRange), 0,1);
                     o.texcoord = TRANSFORM_TEX(v.texcoord, _MainTex);
             
                     stream.Append(o);
