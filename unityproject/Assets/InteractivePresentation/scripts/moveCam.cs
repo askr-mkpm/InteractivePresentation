@@ -28,12 +28,12 @@ namespace InteractivePresentation.scripts
             LinkOsc();
 
             this.UpdateAsObservable()
-                .Where(_ => _touch.y > 0 && _touchCount == 1)
+                .Where(_ => Input.GetKeyDown(KeyCode.RightArrow)|| _touch.y > 0 && _touchCount == 1)
                 .ThrottleFirst(TimeSpan.FromSeconds(0.2))
                 .Subscribe(_ => NextSlide(_targetPos.transform, moveRange));
 
             this.UpdateAsObservable()
-                .Where(_ => _touch.y < 0 && _touchCount == 1)
+                .Where(_ => Input.GetKeyDown(KeyCode.LeftArrow)|| _touch.y < 0 && _touchCount == 1)
                 .ThrottleFirst(TimeSpan.FromSeconds(0.2))
                 .Subscribe(_ => BackSlide(_targetPos.transform, moveRange));
 
