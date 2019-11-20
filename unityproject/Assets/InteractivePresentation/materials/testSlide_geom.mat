@@ -83,7 +83,7 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     - _alphaRange: 1.291
-    - _destRange: 7.81
+    - _destRange: 2.39
     - _emission: 1.199
     - _fadePos: 25
     - _test: 0

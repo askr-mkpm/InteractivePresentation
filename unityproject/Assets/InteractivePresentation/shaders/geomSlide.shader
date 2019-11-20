@@ -67,7 +67,7 @@
                 float3 normal = normalize(cross(vec1, vec2));
            
                 float4 worldPos = mul(unity_ObjectToWorld, float4(center, 1.0));
-                float3 dist = abs(length(_WorldSpaceCameraPos - worldPos) - _fadePos);
+                float3 dist = abs(length(_WorldSpaceCameraPos.z - worldPos.z) - _fadePos);
                 
                 float r = 2 * (rand(center.xy) - 0.5);
                 float3 r3 = fixed3(r, r, r);
@@ -81,7 +81,7 @@
                     
 
                     //v.vertex.xyz = rotate(v.vertex.xyz - center, r3 * pow(dist, 2) * 0.001) + center;
-                    v.vertex.xyz += normal * 0.001 * _destRange* pow(dist, 1.7) * r ;
+                    v.vertex.xyz += normal * 0.01 * pow(dist, _destRange) * r ;
                     o.vertex = UnityObjectToClipPos(v.vertex);
                     o.color = v.color;
                     o.alpha = 1 - clamp(pow(dist * 0.07, _alphaRange), 0,1);
