@@ -16,7 +16,8 @@
             "Queue" = "Transparent"
         }
         
-        Cull Off
+        Cull front
+        Ztest always
         Blend SrcAlpha OneMinusSrcAlpha
 
         Pass
@@ -79,7 +80,8 @@
             
                     g2f o;
                     
-                    v.vertex.xyz += normalize(r3 * r3 * normal) * 0.01 * pow(dist, _destRange) * r ;
+                    float3 deff = normalize(r3 * r3 * normal) * 0.01 * pow(dist, _destRange) * r ;
+                    v.vertex.xyz += deff;
                     o.vertex = UnityObjectToClipPos(v.vertex);
                     o.color = v.color;
                     o.alpha = 1 - clamp(pow(dist * 0.07, _alphaRange), 0,1);
