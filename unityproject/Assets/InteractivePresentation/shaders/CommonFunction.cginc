@@ -1,4 +1,4 @@
-//commonFunc
+//CommonFunction
 
 float3 rotate(float3 p, float3 rotation)
 {

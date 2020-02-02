@@ -6,7 +6,7 @@ using OscJack;
 
 namespace InteractivePresentation.scripts
 {
-    public class MoveCam : MonoBehaviour
+    public class OSCMoveCamera : MonoBehaviour
     {
         [SerializeField] private Transform camRoot;
         private GameObject _targetPos;
