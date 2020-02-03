@@ -7,11 +7,36 @@ namespace InteractivePresentation.scripts.Editor
 {
     public class CreateSlides : EditorWindow
     {
-        [MenuItem("InteractivePresentation/CreateSlides")]
-        public static void Create()
+        [SerializeField] public List<Texture2D> slideNum;
+
+        [MenuItem("Window/InteractivePresentation/CreateSlides")]
+        private static void ShowWindow()
         {
-            GameObject newGameObject = new GameObject("New GameObject");
-            Undo.RegisterCreatedObjectUndo(newGameObject, "Create New GameObject");
+            var window = GetWindow<CreateSlides>("CreateSlides");
+        }
+        
+        void OnGUI()
+        { 
+            var so = new SerializedObject(this);
+            so.Update();
+            
+            EditorGUILayout.PropertyField(so.FindProperty("slideNum"), true);
+            
+            so.ApplyModifiedProperties();
+            
+            if( GUILayout.Button( "Create" ) )
+            {
+                AllignmentSlides();
+            }
+        }
+        
+        private void AllignmentSlides()
+        {
+            for (int i = 0; i < slideNum.Count; i++)
+            {
+                GameObject newGameObject = new GameObject("New GameObject");
+                Undo.RegisterCreatedObjectUndo(newGameObject, "Create New GameObject");
+            }
         }
     }
 }
