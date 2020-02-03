@@ -1,5 +1,7 @@
 # InteractivePresentation
-InteractivePresentation
+unityを利用してプレゼンするためのツール
+- oscを利用してページめくりを遠隔操作
+- エディタ拡張を利用して勘弁なスライド生成
 
 # Lisence
 https://github.com/askr-mkpm/InteractivePresentation/blob/master/LICENSE
