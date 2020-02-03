@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-using ProceduralModeling;
 using Plane = ProceduralModeling.Plane;
 
 namespace InteractivePresentation.scripts.Editor
@@ -29,6 +27,7 @@ namespace InteractivePresentation.scripts.Editor
             if( GUILayout.Button( "Create" ) )
             {
                 AllignmentSlides();
+                Debug.Log("Create_" + slideNum.Count + "_Slides!");
             }
         }
         
@@ -50,10 +49,15 @@ namespace InteractivePresentation.scripts.Editor
                 sp.material.SetFloat("_destRange", 2.5f);
                 sp.material.SetFloat("alphaRange", 1.291f);
                 sp.material.SetFloat("_fadePos", 25f);
+                sp.material.SetTexture("_MainTex", slideNum[i]);
                 
                 sp.widthSegments = 12;
                 sp.heightSegments = 8;
                 sp.size = 3;
+                
+                slide.transform.localPosition = new Vector3(0, 0, 25 + i * 25);
+                slide.transform.eulerAngles = new Vector3(90, 0,0);
+                
                 Undo.RegisterCreatedObjectUndo(slide, "Create New GameObject");
             }
         }
