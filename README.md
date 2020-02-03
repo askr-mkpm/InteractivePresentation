@@ -3,6 +3,8 @@ unityを利用してプレゼンするためのツール
 - oscを利用してページめくりを遠隔操作
 - エディタ拡張を利用して勘弁なスライド生成
 
+![slidetest_min](https://user-images.githubusercontent.com/42016856/73655997-90860480-46d2-11ea-881d-9d652866a5d9.gif)
+
 ![sc_135](https://user-images.githubusercontent.com/42016856/73649453-29148880-46c3-11ea-9f06-8fd30ad6d506.PNG)
 
 
