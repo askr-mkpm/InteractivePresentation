@@ -1,6 +1,7 @@
-# [wip]InteractivePresentation
+# InteractivePresentation
 InteractivePresentation
 
+# Lisence
 oscjack
 unirx
 unitygraphicsprogramming
