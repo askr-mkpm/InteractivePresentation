@@ -2,7 +2,9 @@
 InteractivePresentation
 
 # Lisence
-## unirx
+## UniRx
+https://github.com/neuecc/UniRx
+
 The MIT License (MIT)
 
 Copyright (c) 2018 Yoshifumi Kawai
@@ -26,6 +28,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ## UnityGraphicsProgramming
+https://github.com/IndieVisualLab/UnityGraphicsProgramming
 
 MIT License
 
@@ -50,6 +53,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ## HoloLensPlayground
+https://github.com/hecomi/HoloLensPlayground
 
 The MIT License (MIT)
 
