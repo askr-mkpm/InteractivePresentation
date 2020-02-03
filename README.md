@@ -2,6 +2,7 @@
 InteractivePresentation
 
 # Lisence
+https://github.com/askr-mkpm/InteractivePresentation/blob/master/LICENSE
 ## UniRx
 https://github.com/neuecc/UniRx
 
