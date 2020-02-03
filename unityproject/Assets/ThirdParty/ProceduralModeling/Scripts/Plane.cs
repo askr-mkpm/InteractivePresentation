@@ -7,10 +7,10 @@ namespace ProceduralModeling {
 	public class Plane : ProceduralModelingBase {
 
 		// Planeの列数(widthSegments)と行数(heightSegments)
-		[SerializeField, Range(2, 300)] protected int widthSegments = 8, heightSegments = 8;
+		[SerializeField, Range(2, 300)] public int widthSegments = 8, heightSegments = 8;
 
 		// Planeの横幅と縦幅
-		[SerializeField, Range(0.1f, 10f)] protected float size = 1f;
+		[SerializeField, Range(0.1f, 10f)] public float size = 1f;
 
 		protected override Mesh Build() {
 			var mesh = new Mesh();
