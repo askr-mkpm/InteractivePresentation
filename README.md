@@ -3,6 +3,9 @@ unityを利用してプレゼンするためのツール
 - oscを利用してページめくりを遠隔操作
 - エディタ拡張を利用して勘弁なスライド生成
 
+![sc_135](https://user-images.githubusercontent.com/42016856/73649453-29148880-46c3-11ea-9f06-8fd30ad6d506.PNG)
+
+
 # Lisence
 https://github.com/askr-mkpm/InteractivePresentation/blob/master/LICENSE
 ## UniRx
@@ -43,7 +46,7 @@ in the Software without restriction, including without limitation the rights
 to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions:
-
+t
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
 
