@@ -44,6 +44,13 @@ namespace InteractivePresentation.scripts.Editor
                 GameObject slide = new GameObject("slide_" + i, components);
                 Plane sp;
                 sp = slide.GetComponent<Plane>();
+                
+                sp.material = new Material(Shader.Find("InteractivePresentation/GeometrySlide"));
+                sp.material.SetFloat("_emission", 1.199f);
+                sp.material.SetFloat("_destRange", 2.5f);
+                sp.material.SetFloat("alphaRange", 1.291f);
+                sp.material.SetFloat("_fadePos", 25f);
+                
                 sp.widthSegments = 12;
                 sp.heightSegments = 8;
                 sp.size = 3;
