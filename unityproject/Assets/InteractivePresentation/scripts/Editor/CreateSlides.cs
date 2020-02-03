@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using ProceduralModeling;
+using Plane = ProceduralModeling.Plane;
 
 namespace InteractivePresentation.scripts.Editor
 {
@@ -32,10 +34,20 @@ namespace InteractivePresentation.scripts.Editor
         
         private void AllignmentSlides()
         {
+            var components = new[]
+            {
+                typeof(Plane)
+            };
+            
             for (int i = 0; i < slideNum.Count; i++)
             {
-                GameObject newGameObject = new GameObject("slide_" + i);
-                Undo.RegisterCreatedObjectUndo(newGameObject, "Create New GameObject");
+                GameObject slide = new GameObject("slide_" + i, components);
+                Plane sp;
+                sp = slide.GetComponent<Plane>();
+                sp.widthSegments = 12;
+                sp.heightSegments = 8;
+                sp.size = 3;
+                Undo.RegisterCreatedObjectUndo(slide, "Create New GameObject");
             }
         }
     }
