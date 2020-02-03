@@ -34,7 +34,7 @@ namespace InteractivePresentation.scripts.Editor
         {
             for (int i = 0; i < slideNum.Count; i++)
             {
-                GameObject newGameObject = new GameObject("New GameObject");
+                GameObject newGameObject = new GameObject("slide_" + i);
                 Undo.RegisterCreatedObjectUndo(newGameObject, "Create New GameObject");
             }
         }
