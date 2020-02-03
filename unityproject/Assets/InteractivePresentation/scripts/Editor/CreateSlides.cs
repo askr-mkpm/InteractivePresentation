@@ -38,6 +38,11 @@ namespace InteractivePresentation.scripts.Editor
                 typeof(Plane)
             };
             
+            GameObject slideRoot = new GameObject("SlideRoot");
+            Undo.RegisterCreatedObjectUndo(slideRoot, "Create New GameObject");
+            
+            slideRoot.transform.localPosition = Vector3.zero;
+            
             for (int i = 0; i < slideNum.Count; i++)
             {
                 GameObject slide = new GameObject("slide_" + i, components);
@@ -54,7 +59,8 @@ namespace InteractivePresentation.scripts.Editor
                 sp.widthSegments = 12;
                 sp.heightSegments = 8;
                 sp.size = 3;
-                
+
+                slide.transform.parent = slideRoot.transform;
                 slide.transform.localPosition = new Vector3(0, 0, 25 + i * 25);
                 slide.transform.eulerAngles = new Vector3(90, 0,0);
                 
