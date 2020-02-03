@@ -7,7 +7,7 @@ namespace InteractivePresentation.scripts.Editor
 {
     public class CreateSlides : EditorWindow
     {
-        [SerializeField] public List<Texture2D> slideNum;
+        [SerializeField] public List<Texture2D> slideList;
 
         [MenuItem("Window/InteractivePresentation/CreateSlides")]
         private static void ShowWindow()
@@ -20,14 +20,14 @@ namespace InteractivePresentation.scripts.Editor
             var so = new SerializedObject(this);
             so.Update();
             
-            EditorGUILayout.PropertyField(so.FindProperty("slideNum"), true);
+            EditorGUILayout.PropertyField(so.FindProperty("slideList"), true);
             
             so.ApplyModifiedProperties();
             
             if( GUILayout.Button( "Create" ) )
             {
                 AllignmentSlides();
-                Debug.Log("Create_" + slideNum.Count + "_Slides!");
+                Debug.Log("Create_" + slideList.Count + "_Slides!");
             }
         }
         
@@ -43,7 +43,7 @@ namespace InteractivePresentation.scripts.Editor
             
             slideRoot.transform.localPosition = Vector3.zero;
             
-            for (int i = 0; i < slideNum.Count; i++)
+            for (int i = 0; i < slideList.Count; i++)
             {
                 GameObject slide = new GameObject("slide_" + i, components);
                 Plane sp;
@@ -54,7 +54,7 @@ namespace InteractivePresentation.scripts.Editor
                 sp.material.SetFloat("_destRange", 2.5f);
                 sp.material.SetFloat("alphaRange", 1.291f);
                 sp.material.SetFloat("_fadePos", 25f);
-                sp.material.SetTexture("_MainTex", slideNum[i]);
+                sp.material.SetTexture("_MainTex", slideList[i]);
                 
                 sp.widthSegments = 12;
                 sp.heightSegments = 8;
